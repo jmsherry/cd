@@ -1,0 +1,11 @@
+{
+  "name": "clothes_doctor",
+  "version": "1.0.0",
+  "description": "Clothes Doctor WebApp",
+  "main": "./server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Sherry <james.sherry@jonijade.com>",
+  "license": "UNLICENSED"
+}
