@@ -17,7 +17,6 @@ import CDTheme from './theme/CDTheme';
 
 // Import Actions
 import { toggleAddPost } from './AppActions';
-import { switchLanguage } from '../../modules/Intl/IntlActions';
 
 export class App extends Component {
   constructor(props) {
