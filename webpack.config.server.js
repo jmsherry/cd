@@ -19,15 +19,15 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     modules: [
-      'client',
+      path.resolve(__dirname, 'client'),
       'node_modules',
     ],
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -47,9 +47,6 @@ module.exports = {
             ]
           ]
         },
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
       },
     ],
   },

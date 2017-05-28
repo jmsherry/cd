@@ -1,3 +1,4 @@
+var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
@@ -27,33 +28,36 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     modules: [
-      'client',
+      path.resolve(__dirname, 'client'),
       'node_modules',
     ],
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=[hash:base64]&modules&importLoaders=1!postcss-loader'),
+        loader: ExtractTextPlugin.extract({
+          use: [
+            'style-loader',
+            'css-loader?localIdentName=[hash:base64]&modules&importLoaders=1',
+            'postcss-loader'
+          ]
+        }),
       }, {
         test: /\.css$/,
         include: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
       }, {
         test: /\.jsx*$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader'
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000',
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
+        loader: 'url-loader?limit=10000'
       },
     ],
   },
@@ -69,7 +73,7 @@ module.exports = {
       minChunks: Infinity,
       filename: 'vendor.js',
     }),
-    new ExtractTextPlugin('app.[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin({ filename:'app.[contenthash].css',  allChunks: true }),
     new ManifestPlugin({
       basePath: '/',
     }),
@@ -78,22 +82,27 @@ module.exports = {
       manifestVariable: "webpackManifest",
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compressor: {
+      sourceMap: true,
+      compress: {
         warnings: false,
       }
     }),
-  ],
-
-  postcss: () => [
-    postcssFocus(),
-    cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
-    }),
-    cssnano({
-      autoprefixer: false
-    }),
-    postcssReporter({
-      clearMessages: true,
-    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: () => [
+          postcssFocus(),
+          cssnext({
+            browsers: ['last 2 versions', 'IE > 10'],
+          }),
+          cssnano({
+            autoprefixer: false
+          }),
+          postcssReporter({
+            clearMessages: true,
+          }),
+        ],
+      }
+    })
   ],
 };
