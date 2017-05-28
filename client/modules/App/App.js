@@ -16,7 +16,7 @@ import styles from './App.css';
 import CDTheme from './theme/CDTheme';
 
 // Import Actions
-import { toggleAddPost } from './AppActions';
+// import { toggleAddPost } from './AppActions';
 
 export class App extends Component {
   constructor(props) {
@@ -28,9 +28,9 @@ export class App extends Component {
     this.setState({isMounted: true}); // eslint-disable-line
   }
 
-  toggleAddPostSection = () => {
-    this.props.dispatch(toggleAddPost());
-  };
+  // toggleAddPostSection = () => {
+  //   this.props.dispatch(toggleAddPost());
+  // };
 
   render() {
     return (
@@ -53,11 +53,7 @@ export class App extends Component {
           />
           <MuiThemeProvider muiTheme={CDTheme}>
             <div>
-              <Header
-                switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-                intl={this.props.intl}
-                toggleAddPost={this.toggleAddPostSection}
-              />
+              <Header />
               <main className={styles.container}>
                 {this.props.children}
               </main>
@@ -73,14 +69,11 @@ export class App extends Component {
 App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
 };
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
-  return {
-    intl: store.intl,
-  };
+  return store;
 }
 
 export default connect(mapStateToProps)(App);

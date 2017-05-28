@@ -4,7 +4,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
 // Import Routes
@@ -17,7 +17,7 @@ export default function App(props) {
   return (
     <Provider store={props.store}>
       <div>
-        <Router history={browserHistory}>
+        <Router>
           {routes}
         </Router>
         <ReduxToastr

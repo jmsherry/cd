@@ -6,9 +6,9 @@ import path from 'path';
 
 // Webpack Requirements
 import webpack from 'webpack';
-import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config.dev';
 
 // Initialize the Express App
 const app = new Express();
@@ -45,7 +45,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   }
 
   // feed some dummy data in DB.
-  dummyData();
+  // dummyData();
 });
 
 // Apply body Parser and server public assets and routes
@@ -121,9 +121,7 @@ app.use((req, res, next) => {
       .then(() => {
         const initialView = renderToString(
           <Provider store={store}>
-            <IntlWrapper>
-              <RouterContext {...renderProps} />
-            </IntlWrapper>
+            <RouterContext {...renderProps} />
           </Provider>
         );
         const finalState = store.getState();
@@ -133,7 +131,7 @@ app.use((req, res, next) => {
           .status(200)
           .end(renderFullPage(initialView, finalState));
       })
-      .catch((error) => next(error));
+      .catch((error) => { next(error); });
   });
 });
 

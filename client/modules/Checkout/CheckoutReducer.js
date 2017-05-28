@@ -1,9 +1,9 @@
-import { } from './ServicesActions';
+import { } from './CheckoutActions';
 
 // Initial State
 const initialState = { data: [] };
 
-const ServicesReducer = (state = initialState, action) => {
+const CheckoutReducer = (state = initialState, action) => {
   switch (action.type) {
     // case ADD_POST :
     //   return {
@@ -24,4 +24,4 @@ const ServicesReducer = (state = initialState, action) => {
 // export const getPost = (state, cuid) => state.posts.data.filter(post => post.cuid === cuid)[0];
 
 // Export Reducer
-export default ServicesReducer;
+export default CheckoutReducer;

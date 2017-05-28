@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute } from 'react-router-dom';
 import App from './modules/App/App';
 
 // require.ensure polyfill for node
@@ -32,7 +32,8 @@ if (process.env.NODE_ENV !== 'production') {
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default (
   <Route path="/" component={App}>
-    <IndexRoute
+    <Route
+      path="/"
       getComponent={(nextState, cb) => {
         require.ensure([], (require) => {
           cb(null, require('./modules/Home/pages/HomePage/HomePage').default);

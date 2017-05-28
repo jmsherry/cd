@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
@@ -8,7 +8,7 @@ import FontAwesome from 'react-fontawesome';
 
 // Import Style
 import styles from './Header.css';
-import logo from './logo.jpg';
+import logo from './logo.png';
 
 import { toggleMenu } from './../../AppActions';
 

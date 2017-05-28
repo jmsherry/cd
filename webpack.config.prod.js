@@ -43,7 +43,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: ExtractTextPlugin.extract({
           use: [
-            { loader: 'isomorphic-style-loader' },
             {
               loader: 'css-loader',
               options: {
@@ -51,8 +50,9 @@ module.exports = {
                 modules: true,
                 importLoaders:1
               }
-            },
-            { loader: 'postcss-loader' }
+            }//,
+            // { loader: 'isomorphic-style-loader' },
+            // { loader: 'postcss-loader' }
           ]
         }),
       }, {

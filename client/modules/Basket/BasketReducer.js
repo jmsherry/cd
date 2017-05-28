@@ -1,9 +1,9 @@
-import { } from './ServicesActions';
+import { } from './BasketActions';
 
 // Initial State
 const initialState = { data: [] };
 
-const ServicesReducer = (state = initialState, action) => {
+const BasketReducer = (state = initialState, action) => {
   switch (action.type) {
     // case ADD_POST :
     //   return {
@@ -24,4 +24,4 @@ const ServicesReducer = (state = initialState, action) => {
 // export const getPost = (state, cuid) => state.posts.data.filter(post => post.cuid === cuid)[0];
 
 // Export Reducer
-export default ServicesReducer;
+export default BasketReducer;
