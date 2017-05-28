@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
+var SplitByPathPlugin = require('webpack-split-by-path');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -41,9 +42,17 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
-          'css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap',
-          'postcss-loader'
+          { loader: 'isomorphic-style-loader'},
+          {
+            loader: 'css-loader',
+            options:{
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+              modules: true,
+              importLoaders: 1,
+              sourceMap: true
+            }
+          },
+          { loader: 'postcss-loader'}
         ],
       }, {
         test: /\.css$/,
@@ -61,6 +70,10 @@ module.exports = {
   },
 
   plugins: [
+    // new SplitByPathPlugin(
+    //   [{ name: 'vendor', path: __dirname + '/node_modules' }],
+    //   { ignore: [__dirname + '/node_modules/css-loader'] }
+    // ),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -76,6 +89,7 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       options: {
         context: __dirname,
+        debug: true,
         postcss: () => [
           postcssFocus(),
           cssnext({

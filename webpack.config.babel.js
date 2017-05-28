@@ -2,6 +2,7 @@ var path = require('path');
 var cssnext = require('postcss-cssnext');
 var postcssFocus = require('postcss-focus');
 var postcssReporter = require('postcss-reporter');
+var SplitByPathPlugin = require('webpack-split-by-path');
 
 var cssModulesIdentName = '[name]__[local]__[hash:base64:5]';
 if (process.env.NODE_ENV === 'production') {
@@ -25,9 +26,19 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader',
-        'css-loader?localIdentName=' + cssModulesIdentName + '&modules&importLoaders=1&sourceMap',
-        'postcss-loader'],
+        use: [
+          { loader: 'isomorphic-style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              localIdentName: cssModulesIdentName,
+              modules: true,
+              importLoaders: 1,
+              sourceMap: true,
+            }
+          },
+          { loader: 'postcss-loader' }
+        ],
       },
       {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
@@ -36,9 +47,14 @@ module.exports = {
     ],
   },
   plugins: [
+    // new SplitByPathPlugin(
+    //   [{ name: 'vendor', path: __dirname + '/node_modules' }],
+    //   { ignore: [__dirname + '/node_modules/css-loader'] }
+    // ),
     new webpack.LoaderOptionsPlugin({
       options: {
         context: __dirname,
+        debug: true,
         postcss: () => [
           postcssFocus(),
           cssnext({
