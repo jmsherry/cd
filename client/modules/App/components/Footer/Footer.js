@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ContactWidget from './components/ContactWidget';
-import QuestionsWidget from './components/QuestionsWidget';
-import SocialMediaWidget from './components/SocialMediaWidget';
-import NewsLetterWidget from './components/NewsLetterWidget';
+import ContactWidget from './components/ContactWidget/ContactWidget';
+import QuestionsWidget from './components/QuestionsWidget/QuestionsWidget';
+import SocialMediaWidget from './components/SocialMediaWidget/SocialMediaWidget';
+import NewsLetterWidget from './components/NewsLetterWidget/NewsLetterWidget';
 
 // Import Style
 import s from './Footer.css';
